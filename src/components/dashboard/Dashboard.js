@@ -2,11 +2,15 @@ import React from 'react';
 import Profile from './Profile'
 import EntryList from '../entries/EntryList'
 import { connect } from 'react-redux'
+import { firestoreConnect } from 'react-redux-firebase'
+import { compose } from 'redux'
+import { Redirect } from 'react-router-dom'
 
 class Dashboard extends React.Component {
 	render(){
 		//console.log(this.props)
-		const { entries } = this.props
+		const { entries, auth } = this.props
+		// if(!auth.uid) return <Redirect to='/signIn' />
 		return(
 			<div className='dashboard container'>
 				<div className='row'>
@@ -22,9 +26,24 @@ class Dashboard extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+	// console.log(state)
 	return {
-		entries: state.entry.entries
+		entries: state.firestore.ordered.entries,
+		auth: state.firebase.auth
 	}
 }
 
-export default connect(mapStateToProps)(Dashboard)
+
+export default compose(
+	 connect(mapStateToProps),
+	 firestoreConnect(props => {
+	 	let whereClause = [['privacy', '==', false] ]
+	 	if (props.auth !== undefined && props.auth.uid !== undefined) {
+	 		whereClause.push(['authorId', '==', props.auth.uid])
+	 	}
+	 	return [{
+	 	  collection: 'entries',
+	 	  where: whereClause,
+ 		}]
+	 })
+	)(Dashboard)
