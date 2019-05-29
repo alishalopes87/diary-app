@@ -25,8 +25,6 @@ const createEntry = (entry) =>{
 const editEntry = (entry) => {
 	return(dispatch, getState, { getFirebase, getFirestore }) =>{
 		const firestore = getFirestore();
-		const profile = getState().firebase.profile
-		const authorId = getState().firebase.auth.uid
 
 		firestore.collection('entries').update({
 		title: entry.title,
@@ -40,16 +38,14 @@ const editEntry = (entry) => {
 	}
 };
 
-const deleteEntry = (entry) =>{
+const deleteEntry = (entry_id) =>{
 	return( dispatch, getState, { getFirebase, getFirestore}) =>{
 		const firestore = getFirestore();
-		const profile = getState().firebase.profile
-		const authorId = getState().firebase.auth.uid
 
-		firestore.collection('entries').delete({
-			...entry,
-		}).then(() =>{
-			dispatch({ type: 'DELETE_ENTRY', entry })
+		firestore.collection('entries').doc(entry_id).delete(
+			
+		).then(() =>{
+			dispatch({ type: 'DELETE_ENTRY', entry_id })
 		}).catch((err)=>{
 			dispatch({ type: 'DELETE_ENTRY_ERROR',err})
 		})
