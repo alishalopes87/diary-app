@@ -27,6 +27,11 @@ class CreateEntry extends React.Component{
 		this.props.createEntry(this.state)
 		this.props.history.push('/')
 	}
+
+	getPostWithId(){
+		const id = this.props.params.id
+		
+	}
 	render(){
 		const { auth } = this.props
 		// if(!auth.uid) return <Redirect to='/signIn'/>

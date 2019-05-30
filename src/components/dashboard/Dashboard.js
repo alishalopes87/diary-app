@@ -1,5 +1,4 @@
 import React from 'react';
-import Profile from './Profile'
 import EntryList from '../entries/EntryList'
 import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase'
@@ -18,7 +17,6 @@ class Dashboard extends React.Component {
 						<EntryList entries={entries}/>
 					</div>
 					<div className='col s12 m5 offset-m1'></div>
-					<Profile />
 				</div>
 			</div>
 		)

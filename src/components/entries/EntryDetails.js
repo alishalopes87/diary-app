@@ -6,10 +6,15 @@ import { deleteEntry } from  '../../store/actions/entryAction'
 import { Redirect } from 'react-router-dom'
 import moment from 'moment'
 
-const handleDelete = (e, deleteEntry,entry_id) => {
+const handleDelete = (e, deleteEntry,history,entry_id) => {
 	e.stopPropagation();
 	deleteEntry(entry_id)
-	return <Redirect to='/'/>
+	history.push('/')
+}
+
+const handleEdit = (e, history, entry_id) =>{
+	e.preventDefault()
+	history.push('/create'+"/" + entry_id)
 }
 const EntryDetails = (props) => {
 	console.log("this is props",props)
@@ -17,15 +22,15 @@ const EntryDetails = (props) => {
 	if(entry){
 		return(
 			<div className='container section entry-details'>
-				<div className='card -depth-0'>
+				<div className='card z-depth-0'>
 					<div className='card-content'>	
 					<span className='card-title'>{ entry.title }</span>
 					<p>{ entry.content }</p>
 					</div>
-					<div className='card-action grey-light-4 grey-text'>	
+					<div className='card-action grey lighten-4 grey-text'>	
 					<div>Posted by:{ entry.authorFirstName } { entry.authorLastName }</div>
 				<div>{moment(entry.createdAt.toDate()).calendar()}</div>
-				<div className='left'><button>Edit</button><button onClick={ e => handleDelete(e, props.deleteEntry, props.match.params.id)}>Delete</button></div>
+				<div className='left'><button onClick={ e => handleEdit(e,props.history,props.match.params.id)} >Edit</button><button onClick={ e => handleDelete(e, props.deleteEntry, props.history,props.match.params.id)}>Delete</button></div>
 			</div>
 		</div>
 	</div>

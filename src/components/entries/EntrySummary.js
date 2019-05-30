@@ -6,7 +6,7 @@ const EntrySummary = ({ entry }) => {
 	console.log(entry)
 	return(
 		<div className='card z-depth-0 entry-summary'>
-			<div className='card-content grey-text text darken-3'>
+			<div className='card-content grey-text text-darken-3'>
 				<span className='card-title'>{ entry.title }</span>
 				<p>Posted by: {entry.authorFirstName} {entry.authorLastName}</p>
 				<p className='grey-text'>{ moment(entry.createdAt.toDate()).calendar() }</p>
