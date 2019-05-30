@@ -22,14 +22,18 @@ const createEntry = (entry) =>{
 	}
 };
 
-const editEntry = (entry) => {
+const editEntry = (entry, title, content) => {
 	return(dispatch, getState, { getFirebase, getFirestore }) =>{
+		console.log(entry,entry.title, entry.content)
 		const firestore = getFirestore();
+		const state = getState();
+		// const entries = state.firestore.data.entries
+		// const entry = entries ? entries[entry_id] : null
+		
 
-		firestore.collection('entries').update({
-		title: entry.title,
-		content: entry.content
-
+		firestore.update({ collection: 'entries', doc: entry},{
+			title: title,
+			content: content
 		}).then(() =>{
 			dispatch({ type: 'EDIT_ENTRY', entry })
 		}).catch((err)=>{

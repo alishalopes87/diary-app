@@ -28,13 +28,9 @@ class CreateEntry extends React.Component{
 		this.props.history.push('/')
 	}
 
-	getPostWithId(){
-		const id = this.props.params.id
-		
-	}
 	render(){
 		const { auth } = this.props
-		// if(!auth.uid) return <Redirect to='/signIn'/>
+		if(!auth.uid) return <Redirect to='/signIn'/>
 		return(
 			<div className='container'>
 				<form onSubmit={ this.handleSubmit }className='white'>
@@ -61,10 +57,7 @@ class CreateEntry extends React.Component{
 		)
 	}
 }
-//save auth id on entry
-//add field for public or private 
-//store id of user on entry
-//if author or public = true
+
 
 const mapStateToProps = (state) => {
 	return {

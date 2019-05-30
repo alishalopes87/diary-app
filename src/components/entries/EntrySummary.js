@@ -3,7 +3,6 @@ import moment from 'moment'
 
 
 const EntrySummary = ({ entry }) => {
-	console.log(entry)
 	return(
 		<div className='card z-depth-0 entry-summary'>
 			<div className='card-content grey-text text-darken-3'>
