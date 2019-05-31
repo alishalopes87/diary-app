@@ -22,20 +22,13 @@ class EntryDetails extends React.Component {
 	handleEdit = (e) =>{
 		const { entryId } = this.props;
 		e.stopPropagation();
-		this.props.dispatchEditEntry(entryId, this.state.title, this.state.content)
+		this.props.dispatchEditEntry(entryId, this.inputTitle.current.value, this.inputContent.current.value)
 		this.props.history.push('/')		
 	}
 
-	handleUpdate =(e) =>{
-		this.setState({
-			title: this.inputTitle.current.value,
-			content: this.inputContent.current.value
-		})
 
-	}
 	render(){
 	
-
 		const { entry, auth  } = this.props;
 
 		let title;
@@ -43,8 +36,8 @@ class EntryDetails extends React.Component {
 		let edits;
 		if(entry){
 			if (auth.uid === entry.authorId) {
-				title = <input ref={this.inputTitle} onChange={ this.handleUpdate }  defaultValue={entry.title}className='card-title'></input>
-				content = <textarea ref={this.inputContent} onChange={ this.handleUpdate} defaultValue={entry.content}></textarea>
+				title = <input ref={this.inputTitle} defaultValue={entry.title}className='card-title'></input>
+				content = <textarea ref={this.inputContent} defaultValue={entry.content}></textarea>
 			} else {
 				title = <span className='card-title'>{ entry.title }</span>
 				content = <p>{ entry.content }</p>
