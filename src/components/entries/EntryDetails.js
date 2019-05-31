@@ -7,13 +7,15 @@ import moment from 'moment'
 
 
 class EntryDetails extends React.Component {
-	inputTitle = React.createRef();
-	inputContent = React.createRef();
+
+	inputTitle = React.createRef()
+	inputContent = React.createRef()
 
 
-	handleDelete = (e,entry_id) => {
+	handleDelete = (e) => {
 		e.stopPropagation();
-		deleteEntry(entry_id)
+		const { entryId } = this.props;
+		this.props.deleteEntry(entryId)
 		this.props.history.push('/')
 	}
 
@@ -33,9 +35,6 @@ class EntryDetails extends React.Component {
 	}
 	render(){
 	
-  // function handleClick() {
-	  //   textInput.current.focus();
-	  // }
 
 		const { entry, auth  } = this.props;
 
@@ -54,7 +53,7 @@ class EntryDetails extends React.Component {
 			if(auth.uid){
 				edits = <div className='left'>
 					<button onClick={ this.handleEdit } >Edit</button>
-					<button onClick={ this.handleDelete }>Delete</button>)
+					<button onClick={ this.handleDelete }>Delete</button>
 				</div>
 			}
 			return(
@@ -81,12 +80,10 @@ class EntryDetails extends React.Component {
 			)
 		}
 	}
-
-	}
-
+}
 const mapDispatchToProps = (dispatch) => {
 	return {
-		deleteEntry: (entry_id) => dispatch(deleteEntry(entry_id)),
+		deleteEntry: (entryId) => dispatch(deleteEntry(entryId)),
 		dispatchEditEntry: (entry_id,title,content) => dispatch(editEntry(entry_id,title,content))
 	}
 }
