@@ -1,6 +1,6 @@
 
 
-const createEntry = (entry) =>{
+const createEntry = (entry) => {
 	return (dispatch, getState, { getFirebase, getFirestore }) => {
 		//make async call to db
 		const firestore = getFirestore();
@@ -22,20 +22,20 @@ const createEntry = (entry) =>{
 	}
 };
 
-const editEntry = (entry, title, content) => {
-	return(dispatch, getState, { getFirebase, getFirestore }) =>{
-		console.log(entry,entry.title, entry.content)
+const editEntry = (entryId, title, content) => {
+	console.log('Got Edit')
+	return (dispatch, getState, { getFirebase, getFirestore }) => {
+		console.log("Edit")
 		const firestore = getFirestore();
-		const state = getState();
 		// const entries = state.firestore.data.entries
 		// const entry = entries ? entries[entry_id] : null
-		
+		console.log('Creating entry')
 
-		firestore.update({ collection: 'entries', doc: entry},{
+		firestore.update({ collection: 'entries', doc: entryId},{
 			title: title,
 			content: content
 		}).then(() =>{
-			dispatch({ type: 'EDIT_ENTRY', entry })
+			dispatch({ type: 'EDIT_ENTRY' })
 		}).catch((err)=>{
 			dispatch({ type: 'EDIT_ENTRY_ERROR', err})
 		})

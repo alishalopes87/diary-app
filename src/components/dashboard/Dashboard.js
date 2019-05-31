@@ -3,12 +3,12 @@ import EntryList from '../entries/EntryList'
 import { connect } from 'react-redux'
 import { firestoreConnect } from 'react-redux-firebase'
 import { compose } from 'redux'
-import { Redirect } from 'react-router-dom'
+
 
 class Dashboard extends React.Component {
 	render(){
-		//console.log(this.props)
-		const { entries, auth } = this.props
+
+		const { entries } = this.props
 		// if(!auth.uid) return <Redirect to='/signIn' />
 		return(
 			<div className='dashboard container'>

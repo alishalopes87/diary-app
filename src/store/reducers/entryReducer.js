@@ -7,6 +7,7 @@ const initState = {
 }
 
 const entryReducer = (state = initState, action) => {
+	console.log('Reduce', state, action)
 	switch(action.type){
 		case 'CREATE_ENTRY':
 			console.log('created entry', action.entry);
